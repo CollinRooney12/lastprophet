@@ -3,7 +3,7 @@
 
 Long and Short Term Forecasting using Prophet
 
-
+(Known to R users as thief)
 Credit to Rob J. Hyndman and research partners as much of the code was developed with the help of their work.
 
 
