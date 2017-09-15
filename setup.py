@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name = 'lastprophet',
-      version = '0.0.2',
+      version = '0.1.0',
       description = "Long and Short Term Time Series Forecasting with Facebook's Prophet tool",
       url = "https://github.com/CollinRooney12/lastprophet",
       author = "Collin Rooney",
