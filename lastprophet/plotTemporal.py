@@ -47,8 +47,11 @@ def plotNode(dictframe, h = 1, xlabel = 'ds', ylabel = 'y', startFrom = 0, ax = 
         ##
         # plot the yhat forecast as a solid line and then the h-step ahead forecast as a dashed line
         ##
-        ax.plot(nodeToPlot['ds'].values[startFrom:-periods], nodeToPlot['yhat'][startFrom:-periods], ls='-', c='#0072B2')
-        ax.plot(nodeToPlot['ds'].values[-periods:], nodeToPlot['yhat'][-periods:], dashes = [2,2])
+        if node != 1:
+            ax.plot(nodeToPlot['ds'].values[startFrom:-periods], nodeToPlot['yhat'][startFrom:-periods], ls='-', c='#0072B2')
+            ax.plot(nodeToPlot['ds'].values[-periods:], nodeToPlot['yhat'][-periods:], dashes = [2,2])
+        else:
+            ax.plot(nodeToPlot['ds'].values[startFrom:], nodeToPlot['yhat'][startFrom:], ls='-', c='#0072B2')
         ##
         # plot the cap and uncertainty if necessary
         ##

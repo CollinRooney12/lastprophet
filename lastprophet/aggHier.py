@@ -47,7 +47,7 @@ def aggHier(y, m, aggList = None):
     ##
     # Prophet will only work with pre-defined frequencies, therefore we are going to need to hard code them
     ##
-    if m not in [4,12,7,24,168,8760,365,52]:
+    if m not in [4,12,7,24,168,8760,365,52,252]:
         sys.exit("Sorry, your list of frequencies did not match our list of pre-defined ones.  Please enter m as one of 4,12,7,24,168,870,365,52")
     ##
     # Get all of the factors of m
@@ -57,6 +57,8 @@ def aggHier(y, m, aggList = None):
     mList = [i for i in mSet if i < n]
     if len(mList) == 0:
         sys.exit("Your time series is too short")
+    if m == 252:
+        mList = [1,4,12,21,63,252]
     ##
     # If aggList is specified, find where the factors and that list match
     ##
@@ -241,5 +243,19 @@ def aggHier(y, m, aggList = None):
         monthNum = aggs[1].iloc[0,0].month
         name = calendar.month_abbr[monthNum]
         aggs[1] = aggs[1].rename(columns = {aggs[1].columns[0] : 'AS-'+name})
-
+    
+    elif m == 252:
+        aggs[252] = aggs[252].rename(columns = {aggs[252].columns[0] : 'B'})
+        if 63 in mList:
+            aggs[63] = aggs[63].rename(columns = {aggs[63].columns[0] : '63B'})
+        if 21 in mList:
+            aggs[21] = aggs[21].rename(columns = {aggs[21].columns[0] : '21B'})
+        if 12 in mList:
+            aggs[12] = aggs[12].rename(columns = {aggs[12].columns[0] : '12B'})
+        if 4 in mList:
+            aggs[4] = aggs[4].rename(columns = {aggs[4].columns[0] : '4B'})
+        monthNum = aggs[1].iloc[0,0].month
+        name = calendar.month_abbr[monthNum]
+        aggs[1] = aggs[1].rename(columns = {aggs[1].columns[0] : 'AS-'+name})
+    
     return aggs

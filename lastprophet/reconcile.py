@@ -143,7 +143,7 @@ def reconcile(forecastsDict, h, mse = None, resids = None, comb = "BU", boxcoxT 
         betaEst = np.dot(np.dot(np.dot(sumMat, np.linalg.inv(np.dot(np.dot(np.transpose(sumMat), np.linalg.inv(diagMat)), sumMat))), np.transpose(sumMat)), np.linalg.inv(diagMat))
     if comb == 'WLSV':
         diagMat = [np.repeat(mse[key], key) for key in sorted(mse.keys())]   # Create matrix of mse (error variance) values
-        diagMat = np.diag(np.flip(np.hstack(diagMat)+0.000001, 0))  # Added a very small number to fix the singular matrix problem
+        diagMat = np.diag(np.flip(np.hstack(diagMat)+0.00001, 0))  # Added a very small number to fix the singular matrix problem
         betaEst = np.dot(np.dot(np.dot(sumMat, np.linalg.inv(np.dot(np.dot(np.transpose(sumMat), np.linalg.inv(diagMat)), sumMat))), np.transpose(sumMat)), np.linalg.inv(diagMat))
     ##
     # All
