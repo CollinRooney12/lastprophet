@@ -19,7 +19,7 @@ import numpy as np
 from fbprophet import Prophet
 
 def fitProphet(aggs, h, include_history, cap, capF, changepoints, n_changepoints, \
-                yearly_seasonality, weekly_seasonality, holidays, seasonality_prior_scale, holidays_prior_scale,\
+                yearly_seasonality, weekly_seasonality, daily_seasonality, holidays, seasonality_prior_scale, holidays_prior_scale,\
                 changepoint_prior_scale, mcmc_samples, interval_width, uncertainty_samples):
     """
     Parameters
@@ -52,13 +52,39 @@ def fitProphet(aggs, h, include_history, cap, capF, changepoints, n_changepoints
         if 'AS-' in freq:
             yearly_seasonality = False
         if capF is None:
-            growth = 'linear'
-            m = Prophet(growth, changepoints, n_changepoints, yearly_seasonality, weekly_seasonality, holidays, seasonality_prior_scale, \
-                        holidays_prior_scale, changepoint_prior_scale, mcmc_samples, interval_width, uncertainty_samples)
+            growth = 'linear'          
+            m = Prophet(growth=growth,
+                        changepoints=changepoints,
+                        n_changepoints=n_changepoints,
+                        yearly_seasonality=yearly_seasonality,
+                        weekly_seasonality=weekly_seasonality,
+                        daily_seasonality=daily_seasonality,
+                        holidays=holidays,
+                        seasonality_prior_scale=seasonality_prior_scale,
+                        holidays_prior_scale=holidays_prior_scale,
+                        changepoint_prior_scale=changepoint_prior_scale,
+                        mcmc_samples=mcmc_samples,
+                        interval_width=interval_width,
+                        uncertainty_samples=uncertainty_samples)
+            
+            
+            
         else:
             growth = 'logistic'
-            m = Prophet(growth, changepoints, n_changepoints, yearly_seasonality, weekly_seasonality, holidays, seasonality_prior_scale, \
-                        holidays_prior_scale, changepoint_prior_scale, mcmc_samples, interval_width, uncertainty_samples)
+            
+            m = Prophet(growth=growth,
+                        changepoints=changepoints,
+                        n_changepoints=n_changepoints,
+                        yearly_seasonality=yearly_seasonality,
+                        weekly_seasonality=weekly_seasonality,
+                        daily_seasonality=daily_seasonality,
+                        holidays=holidays,
+                        seasonality_prior_scale=seasonality_prior_scale,
+                        holidays_prior_scale=holidays_prior_scale,
+                        changepoint_prior_scale=changepoint_prior_scale,
+                        mcmc_samples=mcmc_samples,
+                        interval_width=interval_width,
+                        uncertainty_samples=uncertainty_samples)
             aggs[key]['cap'] = cap
         m.fit(aggs[key])
         periods = int((h/seasonal)*key)
