@@ -27,7 +27,7 @@ import os
 
 #%%
 def lastF(y, m = 12, h = 12*2, comb = "OLS", aggList = None, include_history = True, cap = None, capF = None, \
-        changepoints = None, n_changepoints = 25, yearly_seasonality = True, weekly_seasonality = 'auto', holidays = None, seasonality_prior_scale = 10.0, \
+        changepoints = None, n_changepoints = 25, yearly_seasonality = True, weekly_seasonality = 'auto', daily_seasonality='auto', holidays = None, seasonality_prior_scale = 10.0, \
         holidays_prior_scale = 10.0, changepoint_prior_scale = 0.05, mcmc_samples = 0, interval_width = 0.80, uncertainty_samples = 0, transform = None):
     """
         Parameters
@@ -131,7 +131,7 @@ def lastF(y, m = 12, h = 12*2, comb = "OLS", aggList = None, include_history = T
     ##
     with contextlib.redirect_stdout(open(os.devnull, "w")):
         forecastsDict, mse, resids = fitProphet(aggs, h, include_history, cap, capF, changepoints, n_changepoints, \
-                                                 yearly_seasonality, weekly_seasonality, holidays, seasonality_prior_scale, \
+                                                 yearly_seasonality, weekly_seasonality, daily_seasonality, holidays, seasonality_prior_scale, \
                                                  holidays_prior_scale, changepoint_prior_scale, mcmc_samples, interval_width, uncertainty_samples)
     newDict = reconcile(forecastsDict, h, mse, resids, comb, boxcoxT)
 
